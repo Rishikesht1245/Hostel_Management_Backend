@@ -1,7 +1,11 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/database";
+
+import staffRoutes from "./routes/staff.routes";
+import studentRoutes from "./routes/student.routes";
+import chiefWardenRoutes from "./routes/chiefWarden.routes";
 
 // custom type for token payload
 import "./types/request";
@@ -17,6 +21,7 @@ class App {
     this.cors();
     this.bodyParser();
     this.connectDB();
+    this.Routes();
   }
 
   /* ============== private methods only available with in this class =============== */
@@ -45,6 +50,19 @@ class App {
   }
 
   //   routes
+  private Routes(): void {
+    // index route
+    this.app.all("/api/v1", (req: Request, res: Response) => {
+      res.send("Welcome to Hostel Management App 🏚️");
+    });
+
+    //student routes
+    this.app.use("/api/v1/students", studentRoutes);
+    // staff routes
+    this.app.use("/api/v1/staffs", staffRoutes);
+    //chief warden routes
+    this.app.use("/api/v1/chief-warden", chiefWardenRoutes);
+  }
 
   // mongo DB Connection
   private connectDB(): void {
