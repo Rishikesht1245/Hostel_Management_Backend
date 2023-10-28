@@ -7,8 +7,11 @@ import staffRoutes from "./routes/staff.routes";
 import studentRoutes from "./routes/student.routes";
 import chiefWardenRoutes from "./routes/chiefWarden.routes";
 
+import globalErrorHandler from "./errors/AppError";
+
 // custom type for token payload
 import "./types/request";
+import { endPointNotFound, verifyAuth } from "./routes/routeUtils";
 
 class App {
   // this will be used for creating server in the server.ts file
@@ -62,6 +65,17 @@ class App {
     this.app.use("/api/v1/staffs", staffRoutes);
     //chief warden routes
     this.app.use("/api/v1/chief-warden", chiefWardenRoutes);
+
+    //authentication checking function to authenticate in client side
+    this.app.use("/api/v1/checkAuth", verifyAuth);
+
+    // endpoint not found
+    this.app.use("*", endPointNotFound);
+  }
+
+  // Global Error Handler
+  private globalErrorHandler(): void {
+    this.app.use(globalErrorHandler);
   }
 
   // mongo DB Connection

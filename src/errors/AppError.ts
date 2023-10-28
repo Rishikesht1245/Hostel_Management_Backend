@@ -15,10 +15,10 @@ const appError = (err: Error, req: Request, res: Response) => {
     });
   }
 
-  // Mongo Validation Error Handler
+  // Mongo Validation Error Handler : when mongo DB validation fails the error name will be ValidationError and  inside errors the data will be present
   if (err.name === "ValidationError") {
     const mongoError: any = err;
-    const ValidationError: any = Object.values(mongoError.error);
+    const ValidationError: any = Object.values(mongoError.errors);
     res.status(403).json({
       status: "fail",
       operational: true,
@@ -42,3 +42,5 @@ const appError = (err: Error, req: Request, res: Response) => {
     message: "something went wrong!",
   });
 };
+
+export default appError;
