@@ -8,7 +8,7 @@ export interface IStaff extends Document {
   mobile: number;
   role: "warden" | "chef" | "maintenance";
   gender: "male" | "female";
-  profilePic: string;
+  profilePic?: string;
   address: IStaffAddress;
 }
 

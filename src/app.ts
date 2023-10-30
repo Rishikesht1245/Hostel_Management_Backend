@@ -25,6 +25,7 @@ class App {
     this.bodyParser();
     this.connectDB();
     this.Routes();
+    this.globalErrorHandler();
   }
 
   /* ============== private methods only available with in this class =============== */

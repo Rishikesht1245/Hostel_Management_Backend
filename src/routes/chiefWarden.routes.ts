@@ -10,7 +10,7 @@ chiefWarden.get("/test", (req: Request, res: Response) => {
 
 //  -------------- CHIEF WARDEN ROUTES --------------- //
 
-// signup
+// signup : not needed in production
 chiefWarden.post("/sign-up", signUp);
 //login
 chiefWarden.post("/auth", login);

@@ -11,7 +11,7 @@ const staffSchema = new Schema<IStaff>(
       maxlength: [20, "Name must not be longer than 20 characters"],
       //message property will be thrown if validation fails (false)
       validate: {
-        validator: validator.isAlpha as any,
+        validator: (value: any) => /^[a-zA-Z\s]*$/.test(value), // Allows only letters and spaces
         message: "Invalid name",
       },
       trim: true,

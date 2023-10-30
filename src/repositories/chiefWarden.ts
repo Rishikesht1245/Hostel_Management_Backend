@@ -5,7 +5,7 @@ import { hashPassword } from "../utils/passwordManager";
 
 /*  ChiefWardenRepo class extends from AuthService Abstract class so we need to implement all the abstract variables and 
 methods present there, also we can call the other no abstract functions present over there*/
-export class ChiefWardenRepo extends AuthService {
+export class ChiefWardenAuth extends AuthService {
   public role: AuthRoles = "chief-warden";
 
   //   find person with email

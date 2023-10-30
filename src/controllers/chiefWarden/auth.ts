@@ -1,5 +1,5 @@
 // all the routes related to authentication for chiefWarden
-import { ChiefWardenRepo } from "../../repositories/chiefWarden";
+import { ChiefWardenAuth } from "../../repositories/chiefWarden";
 import { RequestHandler } from "express";
 import asyncHandler from "express-async-handler";
 import { dataFormatter } from "../../utils/jsonFormatter";
@@ -7,7 +7,7 @@ import { signToken } from "../../utils/tokenManager";
 import { IChiefWarden } from "../../interfaces/chiefWarden";
 
 // no constructor
-const chiefWarden = new ChiefWardenRepo();
+const chiefWarden = new ChiefWardenAuth();
 
 //  login chief warden : no need to use try catch as we are using async handler
 export const login: RequestHandler = asyncHandler(async (req, res) => {

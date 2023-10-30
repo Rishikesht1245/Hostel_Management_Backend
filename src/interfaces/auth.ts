@@ -9,7 +9,7 @@ export interface IToken {
   _id: string;
   email: string;
   role: TokenRole;
-  department?: TokenDepartment;
+  department?: TokenDepartment; // === role- incase of staffs data form DB
 }
 
 export type TokenRole = "student" | "staff" | "chief-warden";

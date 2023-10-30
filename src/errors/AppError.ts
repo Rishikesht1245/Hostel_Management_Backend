@@ -2,7 +2,12 @@ import { NextFunction, Request, Response } from "express";
 import ErrorResponses from "./ErrorResponse";
 import { JsonWebTokenError } from "jsonwebtoken";
 
-const appError = (err: Error, req: Request, res: Response) => {
+const appError = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   // Error handler for development
   console.log(err);
 
@@ -19,6 +24,7 @@ const appError = (err: Error, req: Request, res: Response) => {
   if (err.name === "ValidationError") {
     const mongoError: any = err;
     const ValidationError: any = Object.values(mongoError.errors);
+    // forbidden
     res.status(403).json({
       status: "fail",
       operational: true,
