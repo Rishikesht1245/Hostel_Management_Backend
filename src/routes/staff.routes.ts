@@ -13,8 +13,8 @@ staff.get("/test", (req: Request, res: Response) => {
 // staff login : with validation middleware using yup library
 staff.route("/auth").post(validate(loginSchema), login);
 
-// new staff creation function will be there in chief-warden routes (since warden creates staff)
-// for development only
-staff.post("/newStaff", newStaff);
+// // new staff creation function will be there in chief-warden routes (since warden creates staff)
+// // for development only
+// staff.post("/newStaff", newStaff);
 
 export default staff;

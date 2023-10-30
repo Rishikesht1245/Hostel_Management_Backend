@@ -11,7 +11,7 @@ const studentSchema = new Schema<IStudent>(
       maxlength: [20, "Name must not be longer than 20 characters"],
       //message property will be thrown if validation fails (false)
       validate: {
-        validator: validator.isAlpha as any,
+        validator: (value: any) => /^[a-zA-z\s]*$/.test(value),
         message: "Invalid name",
       },
       trim: true,
@@ -62,8 +62,8 @@ const studentSchema = new Schema<IStudent>(
       required: [true, "Guardian name is required"],
       trim: true,
       validate: {
-        validator: validator.isAlpha as any,
-        message: "Invalid Guardian name",
+        validator: (value: any) => /^[a-zA-z\s]*$/.test(value),
+        message: "Invalid name",
       },
     },
     guardianMobile: {
