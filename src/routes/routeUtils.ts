@@ -1,4 +1,4 @@
-import ErrorResponses from "src/errors/ErrorResponse";
+import ErrorResponses from "../errors/ErrorResponse";
 import asyncHandler from "express-async-handler";
 
 // const asyncHandler = (fn) => (req, res, next) => {
