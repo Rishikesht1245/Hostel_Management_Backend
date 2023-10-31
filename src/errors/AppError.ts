@@ -10,7 +10,6 @@ const appError = (
 ) => {
   // Error handler for development
   console.log(err);
-
   // custom and expected Error handlers
   if (err instanceof ErrorResponses) {
     return res.status(err.statusCode).json({
@@ -22,10 +21,11 @@ const appError = (
 
   // Mongo Validation Error Handler : when mongo DB validation fails the error name will be ValidationError and  inside errors the data will be present
   if (err.name === "ValidationError") {
+    console.log("reached validation error");
     const mongoError: any = err;
     const ValidationError: any = Object.values(mongoError.errors);
     // forbidden
-    res.status(403).json({
+    return res.status(403).json({
       status: "fail",
       operational: true,
       message: ValidationError[0].message,
