@@ -1,4 +1,4 @@
-import { LargeNumberLike } from "crypto";
+//all interfaces which are related to the staffs
 import { Document } from "mongoose";
 
 export interface IStaff extends Document {
@@ -18,4 +18,16 @@ export interface IStaffAddress {
   pin: number;
   state: string;
   country: string;
+}
+
+export type Department = "maintenance" | "chef" | "warden";
+
+export interface IMealPlan {
+  title: string;
+  price: number;
+  breakfast: string;
+  lunch: string;
+  dinner: string;
+  active?: boolean;
+  subscribers?: number;
 }

@@ -6,7 +6,7 @@ declare namespace Express {
     tokenPayload: {
       _id: string;
       email: string;
-      role: "student" | "staff" | "warden";
+      role: "student" | "staff" | "chief-warden";
       department?: "maintenance" | "chef" | "warden";
     };
   }

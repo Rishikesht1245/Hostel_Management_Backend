@@ -14,6 +14,8 @@ student.get("/test", (req: Request, res: Response) => {
 student.route("/auth").post(validate(loginSchema), login);
 
 // sign up | new Admission
+student.route("newAdmission/mealPlans");
+student.route("newAdmission/blocks");
 student
   .route("/newAdmission")
   .post(validate(studentAdmissionSchema), newAdmission);
