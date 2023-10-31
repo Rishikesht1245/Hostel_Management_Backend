@@ -19,9 +19,9 @@ const blockSchema = new Schema<IBlock>(
       type: String,
       required: [true, "Code is required"],
       trim: true,
-      maxlength: [1, "Code must not be shorter than or equal 1 character"],
+      maxlength: [1, "Code must not be greater than 1 character"],
       validate: {
-        validator: validator.isAlpha as any,
+        validator: (code: any) => /^[A-Z\d]$/.test(code),
         message: "Invalid block code",
       },
     },
@@ -36,10 +36,10 @@ const blockSchema = new Schema<IBlock>(
           type: String,
           required: [true, "Room code is required"],
           trim: true,
-          maxlength: [4, "Room code must not be shorter than 4 character"],
+          maxlength: [4, "Room code must not be greater than 4 character"],
           validate: {
             validator: (val: string) => val.length === 3,
-            message: "Invalid Room code",
+            message: "Invalid Rooms code",
           },
         },
         number: {

@@ -1,5 +1,8 @@
+import { verifyToken } from "../utils/tokenManager";
 import ErrorResponses from "../errors/ErrorResponse";
 import asyncHandler from "express-async-handler";
+import { IToken } from "../interfaces/auth";
+import { dataFormatter } from "../utils/jsonFormatter";
 
 // const asyncHandler = (fn) => (req, res, next) => {
 //   Promise.resolve(fn(req, res, next)).catch(next);
@@ -11,4 +14,14 @@ export const endPointNotFound = asyncHandler(async (req, res) => {
 });
 
 // verify authorization headers
-export const verifyAuth = asyncHandler(async (req, res) => {});
+export const verifyAuth = asyncHandler(async (req, res) => {
+  try {
+    if (!req.headers.authorization)
+      throw ErrorResponses.unAuthorized("Authorization Required");
+    const token = req.headers.authorization.replace("Bearer", "");
+    const { _id } = verifyToken(token) as IToken;
+    res.json(dataFormatter("Authorized User"));
+  } catch (error) {
+    throw ErrorResponses.unAuthorized("Access denied");
+  }
+});

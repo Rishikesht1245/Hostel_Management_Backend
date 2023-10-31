@@ -172,7 +172,7 @@ export const newBlockSchema = yup.object().shape({
     .string()
     .required("Block code is required ")
     .trim()
-    .matches(/^[A-Z]*$/, "Invalid block code"),
+    .matches(/^[A-Z]*$/, "Invalid Block code"),
   numberOfRooms: yup
     .number()
     .required("Number of room is required")

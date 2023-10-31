@@ -8,8 +8,9 @@ import {
   updateMealPlan,
 } from "../controllers/staff/chef";
 import { validate } from "../middlewares/validateBody";
-import { mealPlanSchema } from "../utils/yupSchema";
+import { mealPlanSchema, newBlockSchema } from "../utils/yupSchema";
 import { validate_id } from "../middlewares/validateParams";
+import { allBlocks, newBlock } from "../controllers/chiefWarden/block";
 
 const chiefWarden = Router();
 
@@ -35,5 +36,11 @@ chiefWarden
   .post(validate(mealPlanSchema), newMealPlan)
   .put(validate_id, validate(mealPlanSchema), updateMealPlan)
   .patch(validate_id, changeActivity);
+
+// ------ Blocks and Rooms ------ //
+chiefWarden
+  .route("/blocks/:id?")
+  .get(allBlocks)
+  .post(validate(newBlockSchema), newBlock);
 
 export default chiefWarden;
