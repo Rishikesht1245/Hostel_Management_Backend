@@ -161,6 +161,7 @@ export const mealPlanSchema = yup.object().shape({
   subscribers: yup.number().positive().integer(),
 });
 
+//schema for req.body
 export const newBlockSchema = yup.object().shape({
   name: yup
     .string()

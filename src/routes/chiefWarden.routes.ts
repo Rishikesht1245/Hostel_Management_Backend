@@ -10,7 +10,16 @@ import {
 import { validate } from "../middlewares/validateBody";
 import { mealPlanSchema, newBlockSchema } from "../utils/yupSchema";
 import { validate_id } from "../middlewares/validateParams";
-import { allBlocks, newBlock } from "../controllers/chiefWarden/block";
+import {
+  allBlocks,
+  availableRooms,
+  blockData,
+  checkRoomAvailability,
+  deleteBlock,
+  hostelOccupancy,
+  newBlock,
+  updateRoom,
+} from "../controllers/chiefWarden/block";
 
 const chiefWarden = Router();
 
@@ -38,9 +47,19 @@ chiefWarden
   .patch(validate_id, changeActivity);
 
 // ------ Blocks and Rooms ------ //
+chiefWarden.get("/blocks/rooms/availability/:roomCode", checkRoomAvailability);
+//available rooms in block
+chiefWarden.get("/blocks/rooms/availableRooms/:_id", availableRooms);
+//block data
+chiefWarden.get("/blocks/name/:name", blockData);
+chiefWarden.get("/blocks/occupancyStatistics", hostelOccupancy);
+//  these set of routes should be placed below other wise hostel occupancy route won't work
 chiefWarden
-  .route("/blocks/:id?")
+  .route("/blocks/:_id?")
   .get(allBlocks)
-  .post(validate(newBlockSchema), newBlock);
+  .post(validate(newBlockSchema), newBlock)
+  //update function pending
+  .patch(validate_id, updateRoom)
+  .delete(validate_id, deleteBlock);
 
 export default chiefWarden;
