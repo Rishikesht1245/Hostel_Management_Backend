@@ -13,6 +13,11 @@ import {
   updateMealPlan,
 } from "../controllers/staff/chef";
 import { validate_id } from "../middlewares/validateParams";
+import {
+  allBlocksData,
+  blockData,
+  changeRoomAvailability,
+} from "../controllers/staff/maintenance";
 
 const staff = Router();
 
@@ -24,9 +29,9 @@ staff.get("/test", (req: Request, res: Response) => {
 // staff login : with validation middleware using yup library
 staff.route("/auth").post(validate(loginSchema), login);
 
-// // new staff creation function will be there in chief-warden routes (since warden creates staff)
-// // for development only
-// staff.post("/newStaff", newStaff);
+// new staff creation function will be there in chief-warden routes (since warden creates staff)
+// for development only
+staff.post("/newStaff", newStaff);
 
 // MIDDLEWARE TO VERIFY JWT AUTHENTICATION : will work for all the below routes
 staff.use(checkAuth("staff"));
@@ -45,5 +50,14 @@ staff
   .post(validate(mealPlanSchema), newMealPlan)
   .put(validate_id, validate(mealPlanSchema), updateMealPlan)
   .patch(validate_id, changeActivity);
+
+// ------ MAINTENANCE ROUTES ------ //
+// MIDDLEWARE TO VERIFY THE STAFF IS FROM MAINTENANCE DEPARTMENT
+staff.use("/maintenance", validateStaffRole("maintenance"));
+
+staff.route("/maintenance").get(allBlocksData);
+staff.route("/maintenance/room/:code").patch(changeRoomAvailability);
+//  single block data
+staff.route("/maintenance/:name").get(blockData);
 
 export default staff;
