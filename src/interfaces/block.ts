@@ -16,6 +16,7 @@ export interface IBlock {
   occupancy: number;
 }
 
+//  total number of rooms available and occupied in the hostel
 export interface TotalRoomOccupancy {
   _id: null;
   occupancy: number;
