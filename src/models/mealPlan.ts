@@ -33,6 +33,12 @@ const mealPlanSchema = new Schema<IMealPlan>(
       minlength: [5, "Minimum 5 characters"],
       maxlength: [100, "Maximum 100 characters"],
     },
+    evening: {
+      type: String,
+      required: [true, "Please specify evening"],
+      minlength: [5, "Minimum 5 characters"],
+      maxlength: [100, "Maximum 100 characters"],
+    },
     dinner: {
       type: String,
       required: [true, "Please specify dinner"],

@@ -151,6 +151,12 @@ export const mealPlanSchema = yup.object().shape({
     .trim()
     .min(5, "lunch must be longer than 5 characters")
     .max(100, "lunch must be longer than 5 characters"),
+  evening: yup
+    .string()
+    .required("evening is required")
+    .trim()
+    .min(5, "evening must be longer than 5 characters")
+    .max(100, "evening must be longer than 5 characters"),
   dinner: yup
     .string()
     .required("dinner is required")

@@ -9,7 +9,7 @@ export const checkAuth = (inputRole: TokenRole): RequestHandler =>
   asyncHandler(async (req, res, next) => {
     if (!req.headers.authorization)
       throw ErrorResponses.unAuthorized("Authorization required");
-    const token = req.headers.authorization.replace("Bearer", "");
+    const token = req.headers.authorization.replace("Bearer ", "");
     const { _id, role, email, department } = verifyToken(token) as IToken;
     if (role !== inputRole)
       throw ErrorResponses.unAuthorized(`Route for ${inputRole}`);

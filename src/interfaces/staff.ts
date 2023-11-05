@@ -27,6 +27,7 @@ export interface IMealPlan {
   price: number;
   breakfast: string;
   lunch: string;
+  evening: string;
   dinner: string;
   active?: boolean;
   subscribers?: number;
