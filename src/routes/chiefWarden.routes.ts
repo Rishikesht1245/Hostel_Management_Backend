@@ -79,9 +79,9 @@ chiefWarden
 // staffs by department
 chiefWarden.get("/staffs/department/:department", staffsByDept);
 
-//staffs complaints ---- Pending, need complaints service to proceed with this
+//staffs complaints ---- Pending, need complaints service to proceed with this - Dummy request handler
 chiefWarden.get("/staffs/:_id", validate_id, (req, res) => {
-  res.status(200).json([]);
+  res.status(200).json({ data: { count: 10, total: 15 } });
 });
 
 export default chiefWarden;

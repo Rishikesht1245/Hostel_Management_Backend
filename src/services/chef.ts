@@ -28,7 +28,7 @@ export class ChefService extends ChefRepo {
     return await this.update(_id, data);
   }
 
-  // add students to meal plan
+  // add students to meal plan : needed when user's status changes from pending to resident (Signup)
   async subscribe(_id: string): Promise<IMealPlan> {
     return await this.update(_id, { $inc: { subscribers: 1 } });
   }

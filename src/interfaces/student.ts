@@ -1,5 +1,6 @@
 import { ObjectId } from "mongoose";
 import { Document } from "mongoose";
+import { IMealPlan } from "./staff";
 
 export interface IStudent extends Document {
   _id?: ObjectId;
@@ -29,6 +30,11 @@ export interface IStudent extends Document {
   paidPayment: number;
   balancePayment: number;
   lastBilledMonth: string;
+}
+
+//type for student data after populating the mealPlan reference field : omits meal Plan and add mealPlan with IMealPlan as the type
+export interface PopulatedStudent extends Omit<IStudent, "mealPlan"> {
+  mealPlan: IMealPlan;
 }
 
 export type StudentStatus = "pending" | "resident" | "rejected" | "departed";
