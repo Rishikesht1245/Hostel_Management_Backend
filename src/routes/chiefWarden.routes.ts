@@ -8,7 +8,11 @@ import {
   updateMealPlan,
 } from "../controllers/staff/chef";
 import { validate } from "../middlewares/validateBody";
-import { mealPlanSchema, newBlockSchema } from "../utils/yupSchema";
+import {
+  mealPlanSchema,
+  newBlockSchema,
+  staffSchema,
+} from "../utils/yupSchema";
 import { validate_id } from "../middlewares/validateParams";
 import {
   allBlocks,
@@ -20,6 +24,11 @@ import {
   newBlock,
   updateRoom,
 } from "../controllers/chiefWarden/block";
+import {
+  allStaffsData,
+  newStaff,
+  staffsByDept,
+} from "../controllers/chiefWarden/staff";
 
 const chiefWarden = Router();
 
@@ -28,7 +37,7 @@ chiefWarden.get("/test", (req: Request, res: Response) => {
   res.send("chiefWarden route working");
 });
 
-//  -------------- CHIEF WARDEN ROUTES --------------- //
+//  ------------------ CHIEF WARDEN ROUTES --------------------- //
 
 // signup : not needed in production
 chiefWarden.post("/sign-up", signUp);
@@ -38,7 +47,7 @@ chiefWarden.post("/auth", login);
 // MIDDLEWARE TO VERIFY JWT AUTHENTICATION
 chiefWarden.use(checkAuth("chief-warden"));
 
-// ------ Meal Plans --------- //
+// ---------------------- Meal Plans -------------------------- //
 chiefWarden
   .route("/mealPlans/:_id?")
   .get(allMealPlans)
@@ -46,7 +55,7 @@ chiefWarden
   .put(validate_id, validate(mealPlanSchema), updateMealPlan)
   .patch(validate_id, changeActivity);
 
-// ------ Blocks and Rooms ------ //
+// ------------------- Blocks and Rooms ---------------------- //
 chiefWarden.get("/blocks/rooms/availability/:roomCode", checkRoomAvailability);
 //available rooms in block
 chiefWarden.get("/blocks/rooms/availableRooms/:_id", availableRooms);
@@ -61,5 +70,13 @@ chiefWarden
   //update function pending
   .patch(validate_id, updateRoom)
   .delete(validate_id, deleteBlock);
+
+// ------------------------ STAFFS ---------------------------//
+chiefWarden
+  .route("/staffs")
+  .get(allStaffsData)
+  .post(validate(staffSchema), newStaff);
+// staffs by department
+chiefWarden.get("/staffs/department/:department", staffsByDept);
 
 export default chiefWarden;

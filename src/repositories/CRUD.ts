@@ -1,6 +1,6 @@
 import { Model } from "mongoose";
 
-//generic crud class for all collections
+//generic crud class for all collections : abstract classes can't be inherited
 export abstract class CRUD {
   // model
   abstract model: Model<any>;

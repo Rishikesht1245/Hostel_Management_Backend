@@ -8,3 +8,9 @@ export interface IChiefWarden extends Document {
   password: string;
   mobile: number;
 }
+
+export interface EmailTemplate {
+  email: string;
+  subject: string;
+  body: string;
+}

@@ -11,6 +11,7 @@ export const checkAuth = (inputRole: TokenRole): RequestHandler =>
       throw ErrorResponses.unAuthorized("Authorization required");
     const token = req.headers.authorization.replace("Bearer ", "");
     const { _id, role, email, department } = verifyToken(token) as IToken;
+    //input role should match to go to the next middleware
     if (role !== inputRole)
       throw ErrorResponses.unAuthorized(`Route for ${inputRole}`);
     if (!_id || !email || !role || !validator.isMongoId(_id))
