@@ -196,20 +196,14 @@ export const staffSchema = yup.object().shape({
     .trim()
     .min(4, "Invalid Name")
     .max(16, "Invalid Name"),
-  email: yup
-    .string()
-    .trim()
-    .required()
-    .test("isvalidEmail", "Invalid e-Mail", (arg) =>
-      /[a-z0-9]+@[a-z0-9]+.com/i.test(arg)
-    ),
+  email: yup.string().email().required(),
   password: yup.string().trim().required().min(8).max(16),
   mobile: yup
     .string()
     .trim()
     .matches(/^[0-9]{10}$/, "Invalid mobile number"),
-  role: yup.mixed().oneOf(["warden", "chef", "maintenance"]).required(),
-  gender: yup.mixed().oneOf(["male", "female"]).required(),
+  role: yup.string().oneOf(["warden", "chef", "maintenance"]).required(),
+  gender: yup.string().oneOf(["male", "female"]).required(),
   profilePic: yup.string().trim(),
   address: yup.object().shape({
     building: yup
