@@ -142,7 +142,7 @@ const studentSchema = new Schema<IStudent>(
     },
     mealPlan: {
       type: Schema.Types.ObjectId,
-      ref: "MealPlan",
+      ref: "MealPlan", // reference should match the name of MealPlan model
       validate: {
         validator: (mealPlanId: string) => isValidObjectId(mealPlanId),
       },

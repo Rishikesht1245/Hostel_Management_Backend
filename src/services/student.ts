@@ -29,8 +29,8 @@ export class StudentService extends StudentRepo {
   // Get all students
   async allStudentsData(filter: object = {}): Promise<IStudent[] | null> {
     const allStudentsData = (await this.findAndPopulate(filter, [
-      { path: "MealPlan", select: "title price name" },
-      { path: "Block", select: "name" },
+      { path: "mealPlan", select: "title price name" },
+      { path: "block", select: "name" },
     ])) as IStudent[];
     if (allStudentsData.length < 1)
       throw ErrorResponses.noDataFound("Students");

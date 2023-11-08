@@ -55,7 +55,7 @@ export abstract class BlockRepo extends CRUD {
       {
         $unset: { "rooms.$.student": 1 },
         $set: { "rooms.$.availability": true },
-        //decreasing the number of occupancy
+        //decreasing the number of occupancy (if it is room changing resident will be true and increment by zero)
         $inc: { occupancy: resident ? 0 : -1 },
       }
     );

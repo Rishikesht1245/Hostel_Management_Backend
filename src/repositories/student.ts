@@ -69,10 +69,11 @@ export abstract class StudentRepo extends CRUD {
         $group: {
           _id: null,
           paid: { $sum: "$paidPayment" },
-          pending: { $sum: "$pendingPayment" },
+          pending: { $sum: "$balancePayment" },
         },
       },
     ]);
+    // delete _id other wise _id : null will be there in result
     delete aggregatedResult[0]._id;
     return aggregatedResult[0];
   }

@@ -237,3 +237,51 @@ export const staffSchema = yup.object().shape({
       .max(16, "Invalid country name"),
   }),
 });
+
+// Update student data
+export const updateStudentSchema = yup.object().shape({
+  room: yup
+    .string()
+    .required("Room is required")
+    .trim()
+    .test(
+      "roomCode",
+      "Must be exactly 3 characters",
+      (roomCode) => roomCode.length === 3
+    ),
+  oldRoom: yup
+    .string()
+    .required("Room is required")
+    .trim()
+    .test(
+      "roomCode",
+      "Must be exactly 3 characters",
+      (roomCode) => roomCode.length === 3
+    ),
+  status: yup
+    .string()
+    .trim()
+    .required("Student status is required")
+    .oneOf(["resident", "rejected", "departed"], "Invalid student status"),
+  oldStatus: yup
+    .string()
+    .trim()
+    .required("Student status is required")
+    .oneOf(["pending", "resident"], "Invalid student status"),
+  student: yup.object().shape({
+    name: yup
+      .string()
+      .required("Student name is required")
+      .trim()
+      .min(4, "Invalid student name")
+      .max(20, "Invalid student name"),
+    mealPlan: yup.string().trim().required("Meal plan is required"),
+    email: yup
+      .string()
+      .required("Student email is required")
+      .trim()
+      .test("isvalidEmail", "Invalid e-Mail", (arg) =>
+        /[a-z0-9]+@[a-z0-9]+.com/i.test(arg)
+      ),
+  }),
+});

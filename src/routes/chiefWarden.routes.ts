@@ -12,6 +12,7 @@ import {
   mealPlanSchema,
   newBlockSchema,
   staffSchema,
+  updateStudentSchema,
 } from "../utils/yupSchema";
 import { validate_id } from "../middlewares/validateParams";
 import {
@@ -29,6 +30,12 @@ import {
   newStaff,
   staffsByDept,
 } from "../controllers/chiefWarden/staff";
+import {
+  allStudentsData,
+  allStudentsEmail,
+  paymentStatistics,
+  updateSingleStudent,
+} from "../controllers/chiefWarden/student";
 
 const chiefWarden = Router();
 
@@ -83,5 +90,17 @@ chiefWarden.get("/staffs/department/:department", staffsByDept);
 chiefWarden.get("/staffs/:_id", validate_id, (req, res) => {
   res.status(200).json({ data: { count: 10, total: 15 } });
 });
+
+// ------------------------ STUDENTS ---------------------------//
+chiefWarden.get("/students/all", allStudentsData);
+chiefWarden.get("/students/email", allStudentsEmail);
+chiefWarden.get("/students/paymentStatus", paymentStatistics);
+// update students approve student to resident and other updates
+chiefWarden.patch(
+  "/students/:_id",
+  validate_id,
+  validate(updateStudentSchema),
+  updateSingleStudent
+);
 
 export default chiefWarden;

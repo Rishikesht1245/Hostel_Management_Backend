@@ -55,7 +55,7 @@ export const presetMailTemplates = {
       subject: `Welcome, ${name} | Hostel`,
       body: `Greetings of the day,<br/>
       <br/>
-      <b>Hi, ${name}</b>
+      <b>Dear ${name},</b>
       <br/>
       <p>Welcome to the School Hostel, </p>
       <br/>
@@ -77,7 +77,8 @@ export const presetMailTemplates = {
     return {
       email,
       subject: "Congratulations! You have been admitted to School Hostel",
-      body: `Greetings of the day, ${name},<br/>
+      body: `Greetings of the day<br/><br/>
+      Dear ${name},
       Welcome to the hostel, The chief warden has verified your details and has alloted you to the hostel.
       <br/>
       <h4>Room No: ${roomCode}</h4>
@@ -93,7 +94,8 @@ export const presetMailTemplates = {
     return {
       email,
       subject: "Your room has been changed | School Hostel",
-      body: `Greetings of the day, ${name},<br/>
+      body: `Greetings of the day<br/><br/>
+      Dear ${name},
       Your Room has been changed. Please move to the following room with your belongings.
       <h4>Room No: ${roomCode}</h4>
       <h4>Incase of any enquiry, Please login to your account on the hostel portal using <b>${email}</b>.</h4>
@@ -113,7 +115,8 @@ export const presetMailTemplates = {
     return {
       email,
       subject: `Admission request rejected | School Hostel`,
-      body: `Greetings of the day, ${name},<br/>
+      body: `Greetings of the day,<br/><br/>
+      Dear ${name},
       We are sorry to inform you that your request for accomodation in the school hostel has been rejected.
       <h4>Incase of any enquiry, Please get in touch with chief warden on hostel portal.</h4>
       <p>Best regards,<br/>
