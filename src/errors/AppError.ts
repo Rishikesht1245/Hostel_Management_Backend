@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import ErrorResponses from "./ErrorResponse";
 import { JsonWebTokenError } from "jsonwebtoken";
+import { error } from "console";
 
 const appError = (
   err: Error,
@@ -45,7 +46,7 @@ const appError = (
   return res.status(500).json({
     status: "error",
     operational: false,
-    message: "something went wrong!",
+    message: err.message ? err.message : "something went wrong!",
   });
 };
 

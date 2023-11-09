@@ -6,11 +6,11 @@ import { ObjectId } from "mongoose";
 
 //Student Service
 export class StudentService extends StudentRepo {
-  //student data by ID
+  //student data by ID (used in meal plans route to get the meal plan for this particular student)
   async singleStudentById(_id: string): Promise<PopulatedStudent> {
     const studentData = (await this.findAndPopulate(
       { _id },
-      "MealPlan"
+      "mealPlan"
     )) as PopulatedStudent[];
     if (!studentData) throw ErrorResponses.noDataFound("Student");
     return studentData[0];

@@ -76,7 +76,7 @@ export const updateSingleStudent: RequestHandler = asyncHandler(
               presetMailTemplates.roomUpdated(req.body.student, req.body.room)
             );
           }
-          //update the student details
+          //update the student details --- do for both cases
           await studentService.updateSingleStudent(req.params._id, req.body);
         } else {
           throw ErrorResponses.customError(
