@@ -13,7 +13,7 @@ export const endPointNotFound = asyncHandler(async (req, res) => {
   throw ErrorResponses.endPointNotFound(req.originalUrl);
 });
 
-// verify authorization headers
+// verify authorization headers : For Protected route in client side
 export const verifyAuth = asyncHandler(async (req, res) => {
   try {
     if (!req.headers.authorization)

@@ -36,3 +36,13 @@ export const login: RequestHandler = asyncHandler(async (req, res) => {
     token: signToken(_id, email, "staff", role),
   });
 });
+
+// staff reset password
+export const resetPassword: RequestHandler = asyncHandler(async (req, res) => {
+  const result = await staffAuth.resetPassword(
+    req.tokenPayload.email,
+    req.body.currentPassword,
+    req.body.newPassword
+  );
+  res.status(200).json(dataFormatter("Password updated"));
+});

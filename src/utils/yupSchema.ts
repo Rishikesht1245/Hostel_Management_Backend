@@ -125,6 +125,31 @@ export const studentAdmissionSchema = yup.object().shape({
     ),
 });
 
+export const resetPasswordSchema = yup.object().shape({
+  currentPassword: yup
+    .string()
+    .trim()
+    .required("Required")
+    .min(6, "Invalid Password")
+    .max(16, "Invalid Password"),
+  newPassword: yup
+    .string()
+    .trim()
+    .required("Required")
+    .min(6, "Invalid Password")
+    .max(16, "Invalid Password"),
+  confirmPassword: yup
+    .string()
+    .trim()
+    .required("Required")
+    .oneOf([yup.ref("newPassword")], "Password must match"),
+});
+
+//update profile schema
+export const updateProfileSchema = yup.object().shape({
+  profilePic: yup.string().required("Image is required").trim(),
+});
+
 // Meal Plan schema
 export const mealPlanSchema = yup.object().shape({
   title: yup

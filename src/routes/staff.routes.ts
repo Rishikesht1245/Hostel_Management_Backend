@@ -1,7 +1,12 @@
 import { Router, Request, Response } from "express";
 import { validate } from "../middlewares/validateBody";
-import { loginSchema, mealPlanSchema } from "../utils/yupSchema";
-import { login } from "../controllers/staff/auth";
+import {
+  loginSchema,
+  mealPlanSchema,
+  resetPasswordSchema,
+  updateProfileSchema,
+} from "../utils/yupSchema";
+import { login, resetPassword } from "../controllers/staff/auth";
 import { checkAuth } from "../middlewares/verifyToken";
 import { validateStaffRole } from "../middlewares/validateStaffDepartment";
 import {
@@ -18,6 +23,7 @@ import {
   blockData,
   changeRoomAvailability,
 } from "../controllers/staff/maintenance";
+import { updateProfileImage } from "../controllers/staff/crud";
 
 const staff = Router();
 
@@ -33,6 +39,12 @@ staff.route("/auth").post(validate(loginSchema), login);
 
 // MIDDLEWARE TO VERIFY JWT AUTHENTICATION : will work for all the below routes
 staff.use(checkAuth("staff"));
+
+//Reset password
+staff.patch("/auth", validate(resetPasswordSchema), resetPassword);
+
+// change profile pic
+staff.patch("/profile", validate(updateProfileSchema), updateProfileImage);
 
 // --------------------------- CHEF ----------------------------//
 // MIDDLEWARE TO VERIFY  JWT AUTHENTICATION AND CHEF ROLE
