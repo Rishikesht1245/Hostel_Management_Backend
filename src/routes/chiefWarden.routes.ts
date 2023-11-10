@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { signUp, login } from "../controllers/chiefWarden/auth";
+import { signUp, login, resetPassword } from "../controllers/chiefWarden/auth";
 import { checkAuth } from "../middlewares/verifyToken";
 import {
   allMealPlans,
@@ -44,7 +44,7 @@ chiefWarden.get("/test", (req: Request, res: Response) => {
   res.send("chiefWarden route working");
 });
 
-//  ------------------ CHIEF WARDEN ROUTES --------------------- //
+//  ------------------------ AUTH ----------------------------- //
 
 // signup : not needed in production
 chiefWarden.post("/sign-up", signUp);
@@ -53,6 +53,9 @@ chiefWarden.post("/auth", login);
 
 // MIDDLEWARE TO VERIFY JWT AUTHENTICATION
 chiefWarden.use(checkAuth("chief-warden"));
+
+//reset password
+chiefWarden.patch("/auth", resetPassword);
 
 // ---------------------- Meal Plans -------------------------- //
 chiefWarden
@@ -91,7 +94,7 @@ chiefWarden.get("/staffs/:_id", validate_id, (req, res) => {
   res.status(200).json({ data: { count: 10, total: 15 } });
 });
 
-// ------------------------ STUDENTS ---------------------------//
+// ------------------------- STUDENTS -----------------------------//
 chiefWarden.get("/students/all", allStudentsData);
 chiefWarden.get("/students/email", allStudentsEmail);
 chiefWarden.get("/students/paymentStatus", paymentStatistics);

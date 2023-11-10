@@ -26,13 +26,15 @@ staff.get("/test", (req: Request, res: Response) => {
   res.send("Staff route working");
 });
 
+// --------------------------- AUTH -----------------------------//
+
 // staff login : with validation middleware using yup library
 staff.route("/auth").post(validate(loginSchema), login);
 
 // MIDDLEWARE TO VERIFY JWT AUTHENTICATION : will work for all the below routes
 staff.use(checkAuth("staff"));
 
-// ------------CHEF ROUTES ------------
+// --------------------------- CHEF ----------------------------//
 // MIDDLEWARE TO VERIFY  JWT AUTHENTICATION AND CHEF ROLE
 staff.use("/meals", validateStaffRole("chef"));
 
@@ -47,7 +49,8 @@ staff
   .put(validate_id, validate(mealPlanSchema), updateMealPlan)
   .patch(validate_id, changeActivity);
 
-// ------ MAINTENANCE ROUTES ------ //
+// ---------------------- MAINTENANCE -------------------------- //
+
 // MIDDLEWARE TO VERIFY THE STAFF IS FROM MAINTENANCE DEPARTMENT
 staff.use("/maintenance", validateStaffRole("maintenance"));
 

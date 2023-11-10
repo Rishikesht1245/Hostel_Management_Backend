@@ -4,6 +4,7 @@ import { LoginCred } from "../interfaces/auth";
 import { comparePassword, hashPassword } from "../utils/passwordManager";
 import { studentModel } from "../models/student";
 import { StaffModel } from "../models/staff";
+import { string } from "yup";
 
 // Unified authentication service for all type of users
 
@@ -69,5 +70,16 @@ export abstract class AuthService {
     const newData = new collection(data);
     await newData.save();
     return `${data.name} signed up successfully`;
+  }
+
+  //Reset Password
+  async resetPassword(
+    email: string,
+    currentPassword: string,
+    newPassword: string
+  ): Promise<string | null> {
+    // for ensuring the current password is correct
+    await this.login(email, currentPassword);
+    return await this.updatePassword(email, newPassword);
   }
 }
