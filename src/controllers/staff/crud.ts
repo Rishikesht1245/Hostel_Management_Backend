@@ -18,6 +18,6 @@ export const updateProfileImage: RequestHandler = asyncHandler(
       unique_filename: true,
     });
     await staffService.updateStaff(email, { profilePic: url });
-    res.json(dataFormatter(url));
+    res.status(200).json(dataFormatter(url));
   }
 );

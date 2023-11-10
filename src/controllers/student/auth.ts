@@ -27,3 +27,13 @@ export const newAdmission: RequestHandler = asyncHandler(async (req, res) => {
   const newStudent = await studentAuth.signUp(req.body);
   res.status(200).json(dataFormatter(newStudent));
 });
+
+//Reset Password
+export const resetPassword: RequestHandler = asyncHandler(async (req, res) => {
+  const resetPassword = await studentAuth.resetPassword(
+    req?.tokenPayload?.email!,
+    req?.body?.currentPassword,
+    req?.body?.newPassword
+  );
+  res.status(200).json(dataFormatter(resetPassword));
+});

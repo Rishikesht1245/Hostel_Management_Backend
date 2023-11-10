@@ -1,7 +1,16 @@
 import { Router, Request, Response } from "express";
 import { validate } from "../middlewares/validateBody";
-import { loginSchema, studentAdmissionSchema } from "../utils/yupSchema";
-import { login, newAdmission } from "../controllers/student/auth";
+import {
+  loginSchema,
+  resetPasswordSchema,
+  studentAdmissionSchema,
+  updateProfileSchema,
+} from "../utils/yupSchema";
+import {
+  login,
+  newAdmission,
+  resetPassword,
+} from "../controllers/student/auth";
 import { showActiveMealPlans } from "../controllers/staff/chef";
 import { allBlocks } from "../controllers/chiefWarden/block";
 import {
@@ -10,6 +19,7 @@ import {
   updateMealPlan,
 } from "../controllers/student/mealPlans";
 import { checkAuth } from "../middlewares/verifyToken";
+import { updateProfileImage } from "../controllers/student/crud";
 
 const student = Router();
 
@@ -32,6 +42,13 @@ student
 // ---------------- Middleware to verify JWT Token-----------------------//
 
 student.use(checkAuth("student"));
+
+//---------------- reset password & update profile img ----------------- //
+// reset password
+student.patch("/auth", validate(resetPasswordSchema), resetPassword);
+
+//update profile image
+student.patch("/profile", validate(updateProfileSchema), updateProfileImage);
 
 //  --------------------------- MEAL PLANS ---------------------------- //
 student.route("/mealPlan").get(mealPlan).post(updateMealPlan);
