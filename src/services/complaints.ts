@@ -16,11 +16,13 @@ export class ComplaintService extends ComplaintRepo {
   // Update complaint
   async updateComplaint(_id: string, data: any) {
     if (
+      //we can't update the status to initiated or from oldStatus of rejected or resolved to any other status
       data.status === "initiated" ||
-      data.status === "rejected" ||
-      data.status === "resolved"
+      data.oldStatus === "rejected" ||
+      data.oldStatus === "resolved"
     )
       throw ErrorResponses.customError("Invalid Status");
+    console.log("reached");
 
     const updatedComplaint = await this.findByIdAndUpdate<IComplaintInput>(
       _id,
@@ -28,6 +30,7 @@ export class ComplaintService extends ComplaintRepo {
     );
 
     if (!updatedComplaint) throw ErrorResponses.noDataFound("Complaints");
+    console.log(updatedComplaint);
     return updatedComplaint;
   }
 

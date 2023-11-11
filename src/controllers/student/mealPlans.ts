@@ -10,11 +10,9 @@ const chefService = new ChefService();
 
 // selected meal plan
 export const mealPlan: RequestHandler = asyncHandler(async (req, res) => {
-  console.log(req.tokenPayload);
   const studentData = await studentService.singleStudentById(
     req.tokenPayload._id
   );
-  console.log(studentData);
   res.status(200).json(dataFormatter(studentData?.mealPlan));
 });
 

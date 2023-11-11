@@ -6,7 +6,6 @@ import ErrorResponses from "../errors/ErrorResponse";
 export const validate = (schema: any): RequestHandler =>
   asyncHandler(async (req, res, next) => {
     try {
-      console.log(req.body);
       //.validate here is function provided by yup and stripUnknown true means remove the field in req.body if that field not present in schema
       req.body = await schema.validate(req.body, { stripUnknown: true });
       next();

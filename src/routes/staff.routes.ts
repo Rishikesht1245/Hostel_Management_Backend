@@ -4,6 +4,8 @@ import {
   loginSchema,
   mealPlanSchema,
   resetPasswordSchema,
+  updateComplaintByStaff,
+  updateComplaintSchema,
   updateProfileSchema,
 } from "../utils/yupSchema";
 import { login, resetPassword } from "../controllers/staff/auth";
@@ -24,6 +26,7 @@ import {
   changeRoomAvailability,
 } from "../controllers/staff/maintenance";
 import { updateProfileImage } from "../controllers/staff/crud";
+import { complaints, updateComplaint } from "../controllers/staff/complaints";
 
 const staff = Router();
 
@@ -70,5 +73,12 @@ staff.route("/maintenance").get(allBlocksData);
 staff.route("/maintenance/room/:code").patch(changeRoomAvailability);
 //  single block data
 staff.route("/maintenance/:name").get(blockData);
+
+// ----------------------- COMPLAINTS ------------------------- //
+// fetch all complaints assigned to staff and update (only status to approval and remarks updates)
+staff
+  .route("/complaints/:_id?")
+  .get(complaints)
+  .patch(validate_id, validate(updateComplaintByStaff), updateComplaint);
 
 export default staff;

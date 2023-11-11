@@ -355,3 +355,17 @@ export const updateComplaintSchema = yup.object().shape({
     .min(4, "Remarks must be longer than 4 characters")
     .max(250, "Remarks must be shorter than 250 characters"),
 });
+
+// Update complaint by staff
+export const updateComplaintByStaff = yup.object().shape({
+  status: yup
+    .string()
+    .trim()
+    .required("Complaint status is required")
+    .oneOf(["approval"], "Invalid Complaint status"),
+  remarks: yup
+    .string()
+    .trim()
+    .min(4, "Remarks must be longer than 4 characters")
+    .max(250, "Remarks must be shorter than 250 characters"),
+});
