@@ -325,3 +325,33 @@ export const newComplaintSchema = yup.object().shape({
     .trim()
     .oneOf(["maintenance", "chef", "warden"], "Invalid department"),
 });
+
+// Update complaint schema
+export const updateComplaintSchema = yup.object().shape({
+  staff: yup
+    .string()
+    .trim()
+    .required()
+    .test("Valid MongoDB _id", "Invalid staff", (arg) => isValidObjectId(arg!)),
+  status: yup
+    .string()
+    .trim()
+    .required("Complaint status is required")
+    .oneOf(
+      ["initiated", "approval", "rejected", "issued", "resolved"],
+      "Invalid Complaint status"
+    ),
+  oldStatus: yup
+    .string()
+    .trim()
+    .required("Complaint status is required")
+    .oneOf(
+      ["initiated", "approval", "rejected", "issued", "resolved"],
+      "Invalid Complaint status"
+    ),
+  remarks: yup
+    .string()
+    .trim()
+    .min(4, "Remarks must be longer than 4 characters")
+    .max(250, "Remarks must be shorter than 250 characters"),
+});

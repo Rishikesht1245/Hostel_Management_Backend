@@ -18,15 +18,17 @@ export const newComplaint: RequestHandler = asyncHandler(async (req, res) => {
   res.status(201).json(dataFormatter("Complaint raised successfully"));
 });
 
-// All complaints
+// All complaints with filter
 export const complaints: RequestHandler = asyncHandler(async (req, res) => {
   const filterObj = { ...req.query };
   for (const filter in filterObj) {
     // only allowing status based filters
     if (!filterObj[filter] || filter !== "status") delete filterObj[filter];
   }
+
   const allComplaints = await complaintService.complaintsBySingleStudent(
     req.tokenPayload?._id!,
+    //status
     filterObj
   );
   res.status(200).json(dataFormatter(allComplaints));

@@ -12,6 +12,7 @@ import {
   mealPlanSchema,
   newBlockSchema,
   staffSchema,
+  updateComplaintSchema,
   updateStudentSchema,
 } from "../utils/yupSchema";
 import { validate_id } from "../middlewares/validateParams";
@@ -36,6 +37,13 @@ import {
   paymentStatistics,
   updateSingleStudent,
 } from "../controllers/chiefWarden/student";
+import {
+  allComplaints,
+  complaintsByStaff,
+  complaintsStatistics,
+  singleComplaint,
+  updateComplaint,
+} from "../controllers/chiefWarden/complaints";
 
 const chiefWarden = Router();
 
@@ -90,9 +98,7 @@ chiefWarden
 chiefWarden.get("/staffs/department/:department", staffsByDept);
 
 //staffs complaints ---- Pending, need complaints service to proceed with this - Dummy request handler
-chiefWarden.get("/staffs/:_id", validate_id, (req, res) => {
-  res.status(200).json({ data: { count: 10, total: 15 } });
-});
+chiefWarden.get("/staffs/:_id", validate_id, complaintsByStaff);
 
 // ------------------------- STUDENTS -----------------------------//
 chiefWarden.get("/students/all", allStudentsData);
@@ -105,5 +111,16 @@ chiefWarden.patch(
   validate(updateStudentSchema),
   updateSingleStudent
 );
+
+// ----------------------- COMPLAINTS --------------------------- //
+chiefWarden.get("/complaints", allComplaints);
+chiefWarden.get("/complaints/statistics", complaintsStatistics);
+//Middleware to validate _id in params
+chiefWarden.use("/complaints/:_id", validate_id);
+// _id will be the id of complaint
+chiefWarden
+  .route("/complaints/:_id")
+  .get(singleComplaint)
+  .patch(validate(updateComplaintSchema), updateComplaint);
 
 export default chiefWarden;
