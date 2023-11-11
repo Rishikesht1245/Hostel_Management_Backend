@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { validate } from "../middlewares/validateBody";
 import {
   loginSchema,
+  newComplaintSchema,
   resetPasswordSchema,
   studentAdmissionSchema,
   updateProfileSchema,
@@ -20,6 +21,7 @@ import {
 } from "../controllers/student/mealPlans";
 import { checkAuth } from "../middlewares/verifyToken";
 import { updateProfileImage } from "../controllers/student/crud";
+import { complaints, newComplaint } from "../controllers/student/complaints";
 
 const student = Router();
 
@@ -53,5 +55,11 @@ student.patch("/profile", validate(updateProfileSchema), updateProfileImage);
 //  --------------------------- MEAL PLANS ---------------------------- //
 student.route("/mealPlan").get(mealPlan).post(updateMealPlan);
 student.route("/mealPlans").get(mealPlans);
+
+//  --------------------------- COMPLAINTS ---------------------------- //
+student
+  .route("/complaints")
+  .get(complaints)
+  .post(validate(newComplaintSchema), newComplaint);
 
 export default student;

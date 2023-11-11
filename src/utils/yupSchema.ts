@@ -310,3 +310,18 @@ export const updateStudentSchema = yup.object().shape({
       ),
   }),
 });
+
+// new complaint schema
+export const newComplaintSchema = yup.object().shape({
+  message: yup
+    .string()
+    .required("Message is required")
+    .trim()
+    .min(10, "Message must be longer than 10 characters")
+    .max(200, "Message must be shorter than 200 characters"),
+  department: yup
+    .string()
+    .required("Complaint department is required")
+    .trim()
+    .oneOf(["maintenance", "chef", "warden"], "Invalid department"),
+});

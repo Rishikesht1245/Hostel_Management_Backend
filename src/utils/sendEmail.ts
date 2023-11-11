@@ -141,4 +141,39 @@ export const presetMailTemplates = {
         Chief Warden</p>`,
     };
   },
+  //new complaint
+  newComplaint(email: string, complaintID: string): EmailTemplate {
+    return {
+      email,
+      subject: "Complaint raised Successfully | School Hostel",
+      body: `Greetings of the day,<br/>
+      Your complaint has been registered successfully.
+      <h4>Complaint ID: ${complaintID}</h4>
+      Login to hostel portal to view all details.
+      <br/>
+      <p>Best regards,<br/>
+      Chief Warden</p>`,
+    };
+  },
+  //Update complaint
+  complaintUpdate(
+    email: string,
+    complaintID: string,
+    status: string,
+    staff: { email: string; name: string }
+  ): EmailTemplate {
+    return {
+      email,
+      subject: `Update on Complaint : ${complaintID} | School Hostel`,
+      body: `Greetings of the day,<br/>
+      There has been an update on your complaint.
+      <h4>Complaint ID: ${complaintID}</h4>
+      <h4>Status: ${status.toUpperCase()}</h4>
+      <h4>Staff: ${staff.name} ( ${staff.email} )</h4>
+      Login to hostel portal to view all details.
+      <br/>
+      <p>Best regards,<br/>
+      Chief Warden</p>`,
+    };
+  },
 };
