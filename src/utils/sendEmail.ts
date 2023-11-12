@@ -176,4 +176,23 @@ export const presetMailTemplates = {
       Chief Warden</p>`,
     };
   },
+
+  // New notice
+  newNotice(email: string, title: string, message: string): EmailTemplate {
+    return {
+      email,
+      subject: `New Notice | School Hostel`,
+      body: `Greetings of the day,<br/></br>
+      <h4>Title: ${title}</h4>
+      <b><u>Message</u></b>
+      <br/>
+      ${message}     
+      <br/>
+      <br/>
+      Login to hostel portal to view all details.
+      <br/>
+      <p>Best regards,<br/>
+      Chief Warden</p>`,
+    };
+  },
 };

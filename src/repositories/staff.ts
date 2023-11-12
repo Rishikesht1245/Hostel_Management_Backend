@@ -50,7 +50,7 @@ export class StaffRepo extends CRUD {
   }
 
   // get all staffs emails
-  protected async allStaffsEmail(): Promise<string[]> {
+  async allStaffsEmail(): Promise<string[]> {
     const aggregatedResult = await this.model.aggregate([
       { $match: {} },
       {

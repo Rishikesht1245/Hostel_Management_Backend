@@ -81,4 +81,6 @@ staff
   .get(complaints)
   .patch(validate_id, validate(updateComplaintByStaff), updateComplaint);
 
+//------------------------- NOTICES -------------------------------//
+
 export default staff;

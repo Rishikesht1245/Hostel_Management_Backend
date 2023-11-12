@@ -14,3 +14,12 @@ export interface EmailTemplate {
   subject: string;
   body: string;
 }
+
+//  Interface for notice
+export interface INotice extends Document {
+  title?: string;
+  message?: string;
+  audience?: { staff: boolean; student: boolean };
+  date?: Date;
+  visibility?: boolean;
+}

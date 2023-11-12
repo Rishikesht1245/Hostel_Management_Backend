@@ -11,6 +11,7 @@ import { validate } from "../middlewares/validateBody";
 import {
   mealPlanSchema,
   newBlockSchema,
+  noticeSchema,
   staffSchema,
   updateComplaintSchema,
   updateStudentSchema,
@@ -44,6 +45,15 @@ import {
   singleComplaint,
   updateComplaint,
 } from "../controllers/chiefWarden/complaints";
+import {
+  allNotices,
+  changeVisibility,
+  deleteNotice,
+  noticeStatistics,
+  postNewNotice,
+  singleNotice,
+  updateNotice,
+} from "../controllers/chiefWarden/notice";
 
 const chiefWarden = Router();
 
@@ -122,5 +132,16 @@ chiefWarden
   .route("/complaints/:_id")
   .get(singleComplaint)
   .patch(validate(updateComplaintSchema), updateComplaint);
+
+// ------------------------ NOTICES ----------------------------- //
+chiefWarden.get("/notices/all", allNotices);
+chiefWarden.get("/notices/statistics", noticeStatistics);
+chiefWarden
+  .route("/notices/:_id?")
+  .get(validate_id, singleNotice)
+  .post(validate(noticeSchema), postNewNotice)
+  .put(validate(noticeSchema), updateNotice)
+  .patch(validate_id, changeVisibility)
+  .delete(validate_id, deleteNotice);
 
 export default chiefWarden;
