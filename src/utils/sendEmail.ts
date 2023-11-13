@@ -4,6 +4,7 @@ config();
 
 import nodemailer from "nodemailer";
 import { EmailTemplate } from "../interfaces/chiefWarden";
+import { monthsArray } from "./utilityData";
 
 // send mail to users and staffs
 
@@ -188,6 +189,31 @@ export const presetMailTemplates = {
       <br/>
       ${message}     
       <br/>
+      <br/>
+      Login to hostel portal to view all details.
+      <br/>
+      <p>Best regards,<br/>
+      Chief Warden</p>`,
+    };
+  },
+
+  // Monthly payment
+  monthlyPayment(
+    email: string,
+    bill: number,
+    pendingAmount: number
+  ): EmailTemplate {
+    return {
+      email,
+      subject: `Hostel fees for ${
+        monthsArray[new Date().getMonth()]
+      } ${new Date().getFullYear()} | School Hostel`,
+      body: `Greetings of the day,<br/><br/>
+      <b>Your hostel bill for this month has been generated. Current pending amount to be paid for the hostel is ${pendingAmount}</b>
+      <h4>Bill amount: ${bill - pendingAmount}</h4>
+      <h4>Total Amount to Pay: ${bill}</h4>
+      <br/>    
+      Make sure you pay the bill within next week.
       <br/>
       Login to hostel portal to view all details.
       <br/>

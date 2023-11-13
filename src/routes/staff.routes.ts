@@ -3,6 +3,7 @@ import { validate } from "../middlewares/validateBody";
 import {
   loginSchema,
   mealPlanSchema,
+  monthlyPaymentSchema,
   resetPasswordSchema,
   updateComplaintByStaff,
   updateComplaintSchema,
@@ -27,6 +28,8 @@ import {
 } from "../controllers/staff/maintenance";
 import { updateProfileImage } from "../controllers/staff/crud";
 import { complaints, updateComplaint } from "../controllers/staff/complaints";
+import { allStudents, updateStudentPayment } from "../controllers/staff/warden";
+import { allPayments } from "../controllers/staff/payments";
 
 const staff = Router();
 
@@ -81,6 +84,19 @@ staff
   .get(complaints)
   .patch(validate_id, validate(updateComplaintByStaff), updateComplaint);
 
-//------------------------- NOTICES -------------------------------//
+//------------------------- WARDEN -------------------------------//
+//wardens are responsible for payments and students
+//------------ MIDDLEWARE TO VERIFY WARDEN ROLE ----------------- //
+staff.use(["/students", "/payments"], validateStaffRole("warden"));
+
+staff
+  .route("/students/:_id?")
+  // get all departed and resident students
+  .get(allStudents)
+  // add total rent to student db and send mail
+  .patch(validate_id, validate(monthlyPaymentSchema), updateStudentPayment);
+
+// all payments with filter
+staff.get("/payments", allPayments);
 
 export default staff;

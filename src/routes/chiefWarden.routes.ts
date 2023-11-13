@@ -54,6 +54,7 @@ import {
   singleNotice,
   updateNotice,
 } from "../controllers/chiefWarden/notice";
+import { yearlyRevenue } from "../controllers/chiefWarden/payments";
 
 const chiefWarden = Router();
 
@@ -141,7 +142,10 @@ chiefWarden
   .get(validate_id, singleNotice)
   .post(validate(noticeSchema), postNewNotice)
   .put(validate(noticeSchema), updateNotice)
-  .patch(validate_id, changeVisibility)
+  .patch(validate_id, validate(noticeSchema), changeVisibility)
   .delete(validate_id, deleteNotice);
+
+// ------------------------ PAYMENT ----------------------------- //
+chiefWarden.get("/payments/yearlyRevenue", yearlyRevenue);
 
 export default chiefWarden;

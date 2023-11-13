@@ -396,3 +396,12 @@ export const noticeSchema = yup.object().shape({
   visibility: yup.bool().oneOf([true, false], "Must be true or false"),
   date: yup.date(),
 });
+
+// Monthly payment schema
+export const monthlyPaymentSchema = yup.object().shape({
+  additionalAmount: yup
+    .number()
+    .required()
+    .integer()
+    .moreThan(-1, "Invalid number"),
+});
