@@ -84,7 +84,7 @@ staff
   .get(complaints)
   .patch(validate_id, validate(updateComplaintByStaff), updateComplaint);
 
-//------------------------- WARDEN -------------------------------//
+//------------------------- WARDEN -------------------------------// (pending test)
 //wardens are responsible for payments and students
 //------------ MIDDLEWARE TO VERIFY WARDEN ROLE ----------------- //
 staff.use(["/students", "/payments"], validateStaffRole("warden"));

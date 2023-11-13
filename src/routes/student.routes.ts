@@ -22,6 +22,7 @@ import {
 import { checkAuth } from "../middlewares/verifyToken";
 import { updateProfileImage } from "../controllers/student/crud";
 import { complaints, newComplaint } from "../controllers/student/complaints";
+import { allPayments } from "../controllers/student/payment";
 
 const student = Router();
 
@@ -61,5 +62,8 @@ student
   .route("/complaints")
   .get(complaints)
   .post(validate(newComplaintSchema), newComplaint);
+
+//  --------------------------- PAYMENTS ---------------------------- // (pending test)
+student.route("/payments").get(allPayments);
 
 export default student;
