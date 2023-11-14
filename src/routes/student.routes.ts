@@ -22,7 +22,7 @@ import {
   updateMealPlan,
 } from "../controllers/student/mealPlans";
 import { checkAuth } from "../middlewares/verifyToken";
-import { updateProfileImage } from "../controllers/student/crud";
+import { singleStudent, updateProfileImage } from "../controllers/student/crud";
 import { complaints, newComplaint } from "../controllers/student/complaints";
 import {
   allPayments,
@@ -51,6 +51,8 @@ student
 // ---------------- Middleware to verify JWT Token-----------------------//
 
 student.use(checkAuth("student"));
+// get student data
+student.route("/").get(singleStudent);
 
 //---------------- reset password & update profile img ----------------- //
 // reset password

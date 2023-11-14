@@ -21,3 +21,11 @@ export const updateProfileImage = asyncHandler(async (req, res) => {
   await studentService.updateSingleStudent(_id, { profilePic: url });
   res.json(dataFormatter(url));
 });
+
+//  Get single student
+export const singleStudent: RequestHandler = asyncHandler(async (req, res) => {
+  const studentData = await studentService.singleStudentById(
+    req.tokenPayload?._id!
+  );
+  res.status(200).json(dataFormatter(studentData));
+});

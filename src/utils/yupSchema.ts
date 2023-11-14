@@ -407,12 +407,13 @@ export const monthlyPaymentSchema = yup.object().shape({
 });
 
 // New payment Schema
+
 export const newPaymentSchema = yup.object().shape({
   amount: yup
     .number()
     .min(1, "Min. ₹1")
     .required("Enter an amount")
-    .max(5000, "Max. ₹5000"),
+    .max(15000, "Max. ₹15000"),
 });
 
 // Successful Payment Schema

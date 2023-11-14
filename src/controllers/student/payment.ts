@@ -3,10 +3,10 @@ import { RequestHandler } from "express";
 import { PaymentService } from "../../services/payment";
 import { instance } from "../../config/config";
 import ErrorResponses from "../../errors/ErrorResponse";
-import { dataFormatter } from "src/utils/jsonFormatter";
+import { dataFormatter } from "../../utils/jsonFormatter";
 import * as crypto from "crypto";
-import { StudentService } from "src/services/student";
-import { INewPayment } from "src/interfaces/payment";
+import { StudentService } from "../../services/student";
+import { INewPayment } from "../../interfaces/payment";
 
 // services
 const paymentService = new PaymentService();
@@ -17,7 +17,7 @@ export const allPayments: RequestHandler = asyncHandler(async (req, res) => {
   const allPayments = await paymentService.allPaymentOfStudent(
     req.tokenPayload?._id
   );
-  res.status(200).json(allPayments);
+  res.status(200).json(dataFormatter(allPayments));
 });
 
 //  Initiating payment create order in razor pay
@@ -39,20 +39,26 @@ export const initiatePayment: RequestHandler = asyncHandler(
 //  Successful payment
 export const successfulPayment: RequestHandler = asyncHandler(
   async (req, res) => {
-    const { orderCreationId, razorPayPaymentId, razorpaySignature, amount } =
+    const { orderCreationId, razorpayPaymentId, razorpaySignature, amount } =
       req.body;
 
-    // razorpay signature is generated in the client side using the below algorithm using Crypto
-    // so in server side we manually create the signature using crypto and compare the signature send from client
+    // // razorpay signature is generated in the client side using the below algorithm using Crypto
+    // // so in server side we manually create the signature using crypto and compare the signature send from client
+    // const signature = crypto
+    //   .createHmac(
+    //     // creating hash based message authenticated code
+    //     "sha256",
+    //     process.env.RAZORPAY_API_SECRET as string
+    //   )
+    //   // updating the hmac object with data to be hashed (orderCreationID and razorPayPaymentID concatenation)
+    //   // no space allowed between pipes |
+    //   .update(`${orderCreationId}|${razorPayPaymentId}`)
+    //   // final hashed value in hexadecimal format
+    //   .digest("hex");
+
     const signature = crypto
-      .createHmac(
-        // creating hash based message authenticated code
-        "sha256",
-        process.env.RAZORPAY_API_SECRET as string
-      )
-      // updating the hmac object with data to be hashed (orderCreationID and razorPayPaymentID concatenation)
-      .update(`${orderCreationId} | ${razorPayPaymentId}`)
-      // final hashed value in hexadecimal format
+      .createHmac("sha256", process.env.RAZORPAY_API_SECRET as string)
+      .update(`${orderCreationId}|${razorpayPaymentId}`)
       .digest("hex");
 
     if (signature !== razorpaySignature)
@@ -66,7 +72,7 @@ export const successfulPayment: RequestHandler = asyncHandler(
     //     saving paid data in payment collection
     const newPaymentData: INewPayment = {
       student: req.tokenPayload?._id!,
-      refId: razorPayPaymentId.replace("pay_", ""),
+      refId: razorpayPaymentId.replace("pay_", ""),
       amount: +amount / 100,
       date: Date.now(),
       balancePayment: balancePayment,
