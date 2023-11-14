@@ -405,3 +405,21 @@ export const monthlyPaymentSchema = yup.object().shape({
     .integer()
     .moreThan(-1, "Invalid number"),
 });
+
+// New payment Schema
+export const newPaymentSchema = yup.object().shape({
+  amount: yup
+    .number()
+    .min(1, "Min. ₹1")
+    .required("Enter an amount")
+    .max(5000, "Max. ₹5000"),
+});
+
+// Successful Payment Schema
+export const successfulPaymentSchema = yup.object().shape({
+  orderCreationId: yup.string().trim().required("OrderCreation ID is required"),
+  razorpayPaymentId: yup.string().trim().required("Payment ID is required"),
+  razorpayOrderId: yup.string().trim().required("Order ID is required"),
+  razorpaySignature: yup.string().trim().required("Signature is required"),
+  amount: yup.string().required("A payment must have an amount"),
+});

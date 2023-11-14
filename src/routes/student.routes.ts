@@ -3,8 +3,10 @@ import { validate } from "../middlewares/validateBody";
 import {
   loginSchema,
   newComplaintSchema,
+  newPaymentSchema,
   resetPasswordSchema,
   studentAdmissionSchema,
+  successfulPaymentSchema,
   updateProfileSchema,
 } from "../utils/yupSchema";
 import {
@@ -22,7 +24,11 @@ import {
 import { checkAuth } from "../middlewares/verifyToken";
 import { updateProfileImage } from "../controllers/student/crud";
 import { complaints, newComplaint } from "../controllers/student/complaints";
-import { allPayments } from "../controllers/student/payment";
+import {
+  allPayments,
+  initiatePayment,
+  successfulPayment,
+} from "../controllers/student/payment";
 
 const student = Router();
 
@@ -64,6 +70,10 @@ student
   .post(validate(newComplaintSchema), newComplaint);
 
 //  --------------------------- PAYMENTS ---------------------------- // (pending test)
-student.route("/payments").get(allPayments);
+student
+  .route("/payments")
+  .get(allPayments)
+  .patch(validate(newPaymentSchema), initiatePayment)
+  .post(validate(successfulPaymentSchema), successfulPayment);
 
 export default student;
