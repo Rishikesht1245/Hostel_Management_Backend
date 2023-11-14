@@ -145,7 +145,7 @@ chiefWarden
   .patch(validate_id, validate(noticeSchema), changeVisibility)
   .delete(validate_id, deleteNotice);
 
-// ------------------------ PAYMENT ----------------------------- //
+// ------------------------ PAYMENT ----------------------------- // (pending test)
 chiefWarden.get("/payments/yearlyRevenue", yearlyRevenue);
 
 export default chiefWarden;
