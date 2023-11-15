@@ -71,7 +71,7 @@ student
   .get(complaints)
   .post(validate(newComplaintSchema), newComplaint);
 
-//  --------------------------- PAYMENTS ---------------------------- // (pending test)
+//  --------------------------- PAYMENTS ---------------------------- //
 student
   .route("/payments")
   .get(allPayments)
