@@ -25,19 +25,19 @@ export class PaymentService extends PaymentRepo {
     { month: number; totalPayments: number; revenue: number }[]
   > {
     const revenueData = await this.yearlyRevenueDataByYear();
-    console.log(revenueData);
     const yearlyData: {
       month: number;
       totalPayments: number;
       revenue: number;
     }[] = [];
+    //12 months
     for (let i = 1; i <= 12; i++) {
       yearlyData.push({ month: i, totalPayments: 0, revenue: 0 });
     }
     revenueData?.forEach((monthlyData) => {
       //  0th element onwards so -1 is used
       yearlyData[monthlyData._id.month - 1].totalPayments =
-        monthlyData.totalPayments;
+        monthlyData.totalNumberOfPayments;
       yearlyData[monthlyData._id.month - 1].revenue = monthlyData.revenue;
     });
     return yearlyData;
