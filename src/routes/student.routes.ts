@@ -22,7 +22,11 @@ import {
   updateMealPlan,
 } from "../controllers/student/mealPlans";
 import { checkAuth } from "../middlewares/verifyToken";
-import { singleStudent, updateProfileImage } from "../controllers/student/crud";
+import {
+  notices,
+  singleStudent,
+  updateProfileImage,
+} from "../controllers/student/crud";
 import { complaints, newComplaint } from "../controllers/student/complaints";
 import {
   allPayments,
@@ -78,4 +82,6 @@ student
   .patch(validate(newPaymentSchema), initiatePayment)
   .post(validate(successfulPaymentSchema), successfulPayment);
 
+//  --------------------------- DASHBOARD ---------------------------- //
+student.get("/notices", notices);
 export default student;

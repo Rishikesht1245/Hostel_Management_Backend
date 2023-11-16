@@ -3,9 +3,11 @@ import { RequestHandler } from "express";
 import { dataFormatter } from "../../utils/jsonFormatter";
 import { cloudinary } from "../../utils/uploadImage";
 import { StudentService } from "../../services/student";
+import { NoticeService } from "../../services/notice";
 
 // services
 const studentService = new StudentService();
+const noticeService = new NoticeService();
 
 //Update profile image
 export const updateProfileImage = asyncHandler(async (req, res) => {
@@ -28,4 +30,10 @@ export const singleStudent: RequestHandler = asyncHandler(async (req, res) => {
     req.tokenPayload?._id!
   );
   res.status(200).json(dataFormatter(studentData));
+});
+
+//  Notices for students
+export const notices: RequestHandler = asyncHandler(async (req, res) => {
+  const studentNotices = await noticeService.studentNotices();
+  res.json(dataFormatter(studentNotices));
 });

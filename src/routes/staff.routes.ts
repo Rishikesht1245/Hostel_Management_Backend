@@ -30,6 +30,7 @@ import { updateProfileImage } from "../controllers/staff/crud";
 import { complaints, updateComplaint } from "../controllers/staff/complaints";
 import { allStudents, updateStudentPayment } from "../controllers/staff/warden";
 import { allPayments } from "../controllers/staff/payments";
+import { dashBoardStatistics, notices } from "../controllers/staff/staff";
 
 const staff = Router();
 
@@ -84,7 +85,7 @@ staff
   .get(complaints)
   .patch(validate_id, validate(updateComplaintByStaff), updateComplaint);
 
-//------------------------- WARDEN -------------------------------// (pending test)
+//------------------------- WARDEN -------------------------------//
 //wardens are responsible for payments and students
 //------------ MIDDLEWARE TO VERIFY WARDEN ROLE ----------------- //
 staff.use(["/students", "/payments"], validateStaffRole("warden"));
@@ -98,5 +99,11 @@ staff
 
 // all payments with filter
 staff.get("/payments", allPayments);
+
+//------------------------- DASHBOARD -------------------------------//
+// notices
+staff.get("/notices", notices);
+// dashboard statistics
+staff.get("/dashboard", dashBoardStatistics);
 
 export default staff;
