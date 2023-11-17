@@ -31,6 +31,7 @@ import { complaints, updateComplaint } from "../controllers/staff/complaints";
 import { allStudents, updateStudentPayment } from "../controllers/staff/warden";
 import { allPayments } from "../controllers/staff/payments";
 import { dashBoardStatistics, notices } from "../controllers/staff/staff";
+import { allChatMessages } from "../controllers/staff/chat";
 
 const staff = Router();
 
@@ -105,5 +106,8 @@ staff.get("/payments", allPayments);
 staff.get("/notices", notices);
 // dashboard statistics
 staff.get("/dashboard", dashBoardStatistics);
+
+// ------------------------ CHAT ----------------------------- //
+staff.get("/chats", allChatMessages);
 
 export default staff;

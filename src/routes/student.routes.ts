@@ -33,6 +33,7 @@ import {
   initiatePayment,
   successfulPayment,
 } from "../controllers/student/payment";
+import { allChatMessages } from "../controllers/student/chat";
 
 const student = Router();
 
@@ -84,4 +85,8 @@ student
 
 //  --------------------------- DASHBOARD ---------------------------- //
 student.get("/notices", notices);
+
+// ------------------------ CHATS ----------------------------- //
+student.get("/chats", allChatMessages);
+
 export default student;

@@ -55,6 +55,7 @@ import {
   updateNotice,
 } from "../controllers/chiefWarden/notice";
 import { yearlyRevenue } from "../controllers/chiefWarden/payments";
+import { allChatMessages } from "../controllers/chiefWarden/chat";
 
 const chiefWarden = Router();
 
@@ -145,7 +146,11 @@ chiefWarden
   .patch(validate_id, validate(noticeSchema), changeVisibility)
   .delete(validate_id, deleteNotice);
 
-// ------------------------ PAYMENT ----------------------------- // (pending test)
+// ------------------------ PAYMENT ----------------------------- //
 chiefWarden.get("/payments/yearlyRevenue", yearlyRevenue);
+
+// ------------------------ CHAT ----------------------------- //
+// chat by room
+chiefWarden.get("/chats/:room", allChatMessages);
 
 export default chiefWarden;
