@@ -1,7 +1,7 @@
 import { Document, ObjectId } from "mongoose";
 
 // user in chat
-export interface userChat {
+export interface UserChat {
   role: string;
   socketId: string;
 }

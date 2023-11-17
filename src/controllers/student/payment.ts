@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { RequestHandler } from "express";
 import { PaymentService } from "../../services/payment";
-import { instance } from "../../config/config";
+import { instance } from "../../config/razorpay";
 import ErrorResponses from "../../errors/ErrorResponse";
 import { dataFormatter } from "../../utils/jsonFormatter";
 import * as crypto from "crypto";
