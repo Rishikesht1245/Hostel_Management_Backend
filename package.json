@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:build": "tsc --w",
-    "start:run": "nodemon dist/server.js",
-    "start": "concurrently npm:start:*",
-    "build": "npm install"
-  },
+  "start:build": "tsc --w",
+  "start:run": "nodemon dist/server.js",
+  "start": "concurrently \"npm run start:build\" \"npm run start:run\"",
+  "build": "npm install && tsc"
+},
+
   "keywords": [],
   "author": "Rishikesh T",
   "license": "ISC",
