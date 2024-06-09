@@ -17,7 +17,7 @@ jobs:
         run: docker build -t hostel-backend-node-image .
 
       - name: Stop previous container (if exists)
-        run: docker hostel-backend-node-container || true
+        run: docker stop hostel-backend-node-container || true
 
       - name: Remove previous container (if exists)
         run: docker rm hostel-backend-node-container || true
