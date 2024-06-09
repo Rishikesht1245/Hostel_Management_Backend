@@ -23,4 +23,4 @@ jobs:
         run: docker rm hostel-backend-node-container || true
 
       - name: Run Docker container
-        run: docker run -d --name hostel-backend-node-container -p 4000:4000 hostel-backend-node-image
+        run: docker run -d --name hostel-backend-node-container -p 3000:3000 hostel-backend-node-image
