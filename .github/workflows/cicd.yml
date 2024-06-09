@@ -14,13 +14,13 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Build Docker image
-        run: docker build -t hostel-backend-node-image .
+        run: sudo docker build -t hostel-backend-node-image .
 
       - name: Stop previous container (if exists)
-        run: docker stop hostel-backend-node-container || true
+        run: sudo docker stop hostel-backend-node-container || true
 
       - name: Remove previous container (if exists)
-        run: docker rm hostel-backend-node-container || true
+        run: sudo docker rm hostel-backend-node-container || true
 
       - name: Run Docker container
-        run: docker run -d --name hostel-backend-node-container -p 3000:3000 hostel-backend-node-image
+        run: sudo docker run -d --name hostel-backend-node-container -p 3000:3000 hostel-backend-node-image
