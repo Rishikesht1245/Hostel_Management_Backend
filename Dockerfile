@@ -1,5 +1,5 @@
 # Use a base image
-FROM node:14
+FROM node:20.14.0-alpine
 
 # Set environment variables
 ENV CLOUDINARY_API_KEY=573665132778922 \
