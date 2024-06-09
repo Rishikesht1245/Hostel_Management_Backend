@@ -1,0 +1,42 @@
+name: Deploy Node.js App to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image
+        run: docker build -t hostel-backend-node .
+
+      - name: Push Docker image to Docker Hub
+        run: docker push hostel-backend-node
+
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull Docker image from Docker Hub
+        run: docker pull hostel-backend-node
+
+      - name: Stop previous container (if exists)
+        run: docker stop hostel-backend-node-container || true
+
+      - name: Remove previous container (if exists)
+        run: docker rm hostel-backend-node-container || true
+
+      - name: Run Docker container
+        run: docker run -d --name hostel-backend-node-container -p 3000:3000 hostel-backend-node
