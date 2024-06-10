@@ -2,7 +2,14 @@
 FROM node:20.14.0-alpine
 
 # Set environment variables
-# ... (keep your existing environment variables)
+ENV CLOUDINARY_API_KEY=573665132778922 \
+    CLOUDINARY_API_SECRET=IWXrmDL1DfQxbvV_mOAv1oDhq7g \
+    CLOUDINARY_CLOUD_NAME=djcn6luvw \
+    TRANSPORTER_USERNAME=hchiefwarden@gmail.com \
+    TRANSPORTER_PASSWORD="sbkc oymm bmsh frpp" \
+    RAZORPAY_API_SECRET=yeZ1JRMsKB9wDAK8qp2MXhxV \
+    RAZORPAY_API_ID=rzp_test_52pMKUsVhUtk2U \
+    PORT=3000 \
 
 # Set the working directory in the container
 WORKDIR /app
