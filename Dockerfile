@@ -12,7 +12,7 @@ ENV CLOUDINARY_API_KEY=573665132778922 \
     PORT=3000 \
     MONGO_URI='mongodb+srv://rishikeshtharayil:0YhEX4uvpZcTz1ab@cluster0.4tuvlcb.mongodb.net/?retryWrites=true&w=majority' \
     JWT_SECRET=Hello I am randow JWT Secre1245t \
-    FRONT_END_URL=http://localhost:5173 \
+    FRONT_END_URL=http://localhost:5173 
 
 # Set the working directory in the container
 WORKDIR /app
