@@ -56,7 +56,7 @@ class App {
   //   routes
   private Routes(): void {
     // index route
-    this.app.all("/api/v1", (req: Request, res: Response) => {
+    this.app.all("/api/v1/test", (req: Request, res: Response) => {
       res.send("Welcome to Hostel Management App 🏚️");
     });
 
