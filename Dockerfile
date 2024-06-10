@@ -9,7 +9,7 @@ ENV CLOUDINARY_API_KEY=573665132778922 \
     TRANSPORTER_PASSWORD="sbkc oymm bmsh frpp" \
     RAZORPAY_API_SECRET=yeZ1JRMsKB9wDAK8qp2MXhxV \
     RAZORPAY_API_ID=rzp_test_52pMKUsVhUtk2U \
-    PORT=3000 \
+    PORT=3000
 
 # Set the working directory in the container
 WORKDIR /app
