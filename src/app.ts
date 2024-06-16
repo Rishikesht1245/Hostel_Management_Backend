@@ -38,7 +38,7 @@ class App {
   private cors(): void {
     this.app.use(
       cors({
-        origin: 'http://51.20.44.124:5173',
+        origin: process.env.FRONT_END_URL,
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         credentials: true,
       })
