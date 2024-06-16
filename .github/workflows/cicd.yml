@@ -36,7 +36,7 @@ jobs:
       - name: Remove previous container (if exists)
         run: sudo docker rm hostel-backend-node-container || true
 
-      - name: Run Docker container
+      - name: Run Docker container with env
         run: |
           sudo docker run -d --name hostel-backend-node-container -p 3000:3000 \
           -e RAZORPAY_KEY_ID=$RAZORPAY_KEY_ID \
