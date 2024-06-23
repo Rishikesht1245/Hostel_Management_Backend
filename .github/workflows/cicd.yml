@@ -38,7 +38,7 @@ jobs:
 
       - name: Run Docker container with env
         run: |
-          sudo docker run -d --name hostel-backend-node-container -p 3000:3000 \
+          sudo docker run -d --name hostel-backend-node-container -p 80:80 \
           -e RAZORPAY_KEY_ID=$RAZORPAY_KEY_ID \
           -e MONGODB_URL=$MONGODB_URL \
           -e CLOUDINARY_API_KEY=$CLOUDINARY_API_KEY \
