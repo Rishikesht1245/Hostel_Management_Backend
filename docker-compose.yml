@@ -21,6 +21,8 @@ services:
       PORT: ${PORT}
       JWT_SECRET: ${JWT_SECRET}
       FRONT_END_URL: ${FRONT_END_URL}
+    networks:
+      - default
 
   caddy:
     image: caddy:latest
@@ -32,6 +34,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    networks:
+      - default
 
 volumes:
   caddy_data:
