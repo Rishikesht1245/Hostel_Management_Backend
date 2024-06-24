@@ -1,5 +1,5 @@
 # Stage 1: Build the Node.js application
-FROM node:20.14.0-alpine as build
+FROM node:20.14.0-alpine
 
 # Set environment variables
 ENV PORT=3000
