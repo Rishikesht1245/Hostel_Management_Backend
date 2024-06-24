@@ -32,13 +32,13 @@ jobs:
 
       - name: Stop and remove previous containers if they exist
         run: |
-          docker-compose down --remove-orphans
-          docker rm -f hostel-backend-node-container || true
-          docker rm -f caddy-container || true
+          sudo docker-compose down --remove-orphans
+          sudo docker rm -f hostel-backend-node-container || true
+          sudo docker rm -f caddy-container || true
 
       - name: Pull Docker images (if needed)
-        run: docker-compose pull
+        run: sudo docker-compose pull
 
       - name: Build and start Docker Compose services
         run: |
-          docker-compose up -d --build
+          sudo docker-compose up -d --build
