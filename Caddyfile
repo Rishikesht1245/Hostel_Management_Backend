@@ -1,34 +1,18 @@
 {
-    # Global options block. Entirely optional, https://caddyserver.com/docs/caddyfile/options
+    email rishikeshtgit@gmail.com
 }
 
 api.hostel4u.xyz {
     reverse_proxy app:3000
-
     log {
         output file /var/log/caddy/access.log
-        format single_field common_log
+        format console
     }
-
-    errors {
-        log /var/log/caddy/error.log
+    tls {
+        on_demand
     }
-
-    encode gzip
 }
 
-# For local development use, if you don't have a domain
-localhost {
-    reverse_proxy app:3000
-
-    log {
-        output file /var/log/caddy/access.log
-        format single_field common_log
-    }
-
-    errors {
-        log /var/log/caddy/error.log
-    }
-
-    encode gzip
+:80 {
+    redir https://api.hostel4u.xyz permanent
 }
