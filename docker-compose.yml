@@ -5,13 +5,26 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: hostel-backend-node-container
     ports:
       - "3000:3000"
-    networks:
-      - app-network
+    environment:
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+      MONGODB_URL: ${MONGODB_URL}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      TRANSPORTER_USERNAME: ${TRANSPORTER_USERNAME}
+      TRANSPORTER_PASSWORD: ${TRANSPORTER_PASSWORD}
+      RAZORPAY_API_SECRET: ${RAZORPAY_API_SECRET}
+      RAZORPAY_API_ID: ${RAZORPAY_API_ID}
+      PORT: ${PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      FRONT_END_URL: ${FRONT_END_URL}
 
   caddy:
     image: caddy:latest
+    container_name: caddy-container
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
@@ -19,14 +32,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    depends_on:
-      - app
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
 
 volumes:
   caddy_data:

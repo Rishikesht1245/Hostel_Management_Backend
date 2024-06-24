@@ -1,4 +1,4 @@
-name: Deploy Node.js App to EC2
+name: Deploy Node.js App with Docker Compose (Self-hosted Runner)
 
 on:
   push:
@@ -26,29 +26,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-      - name: Build Docker image
-        run: sudo docker build -t hostel-backend-node-image .
 
-      - name: Stop previous container (if exists)
-        run: sudo docker stop hostel-backend-node-container || true
+      - name: Check if Docker Compose is installed
+        run: docker-compose version
 
-      - name: Remove previous container (if exists)
-        run: sudo docker rm hostel-backend-node-container || true
-
-      - name: Run Docker container with env
+      - name: Stop and remove previous containers if they exist
         run: |
-          sudo docker run -d --name hostel-backend-node-container -p 3000:3000 \
-          -e RAZORPAY_KEY_ID=$RAZORPAY_KEY_ID \
-          -e MONGODB_URL=$MONGODB_URL \
-          -e CLOUDINARY_API_KEY=$CLOUDINARY_API_KEY \
-          -e CLOUDINARY_API_SECRET=$CLOUDINARY_API_SECRET \
-          -e CLOUDINARY_CLOUD_NAME=$CLOUDINARY_CLOUD_NAME \
-          -e TRANSPORTER_USERNAME=$TRANSPORTER_USERNAME \
-          -e TRANSPORTER_PASSWORD="$TRANSPORTER_PASSWORD" \
-          -e RAZORPAY_API_SECRET=$RAZORPAY_API_SECRET \
-          -e RAZORPAY_API_ID=$RAZORPAY_API_ID \
-          -e PORT=$PORT \
-          -e JWT_SECRET="$JWT_SECRET" \
-          -e FRONT_END_URL=$FRONT_END_URL \
-          hostel-backend-node-image
+          docker-compose down --remove-orphans
+          docker rm -f hostel-backend-node-container || true
+          docker rm -f caddy-container || true
+
+      - name: Pull Docker images (if needed)
+        run: docker-compose pull
+
+      - name: Build and start Docker Compose services
+        run: |
+          docker-compose up -d --build
