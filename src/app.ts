@@ -38,7 +38,7 @@ class App {
   private cors(): void {
     this.app.use(
       cors({
-        origin: process.env.FRONT_END_URL,
+        origin: process.env.FRONT_END_URL || "https://hostel4u.xyz",
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         credentials: true,
       })
