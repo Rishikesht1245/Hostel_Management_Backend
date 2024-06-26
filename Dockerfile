@@ -19,5 +19,5 @@ COPY . .
 # Build the TypeScript code (if applicable)
 RUN npm run build
 
-# Start Node.js application
+# Start Node.js application in production
 CMD ["npm", "run", "start"]
