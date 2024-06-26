@@ -40,5 +40,23 @@ jobs:
         run: sudo docker-compose pull
 
       - name: Build and start Docker Compose services
+      # sudo -E is used to preserve the env variables set in the cicd to docker-compose file
         run: |
-          sudo docker-compose up -d --build
+          sudo -E docker-compose up -d --build
+        env:
+          RAZORPAY_KEY_ID: ${{ secrets.RAZORPAY_KEY_ID }}
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          TRANSPORTER_USERNAME: ${{ secrets.TRANSPORTER_USERNAME }}
+          TRANSPORTER_PASSWORD: ${{ secrets.TRANSPORTER_PASSWORD }}
+          RAZORPAY_API_SECRET: ${{ secrets.RAZORPAY_API_SECRET }}
+          RAZORPAY_API_ID: ${{ secrets.RAZORPAY_API_ID }}
+          PORT: ${{ secrets.PORT }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          FRONT_END_URL: ${{ secrets.FRONT_END_URL }}
+
+      - name: Verify environment variables
+        run: |
+          sudo docker exec hostel-backend-node-container env
