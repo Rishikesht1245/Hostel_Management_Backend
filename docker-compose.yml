@@ -36,7 +36,7 @@ services:
       - "443:443"
     networks:
       - default
-
+# Caddy logs will be placed here
 volumes:
   caddy_data:
   caddy_config:
